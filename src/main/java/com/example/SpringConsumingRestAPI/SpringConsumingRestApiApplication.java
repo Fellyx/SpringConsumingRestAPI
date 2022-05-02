@@ -25,6 +25,15 @@ public class SpringConsumingRestApiApplication {
     return builder.build();
   }
   
+  @Bean
+  public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+    return args -> {
+      Quote quote = restTemplate.getForObject(
+          "https://quoters.apps.pcfone.io/api/random", Quote.class);
+      log.info(quote.toString());
+    };
+  }
+  
   
 
 }
